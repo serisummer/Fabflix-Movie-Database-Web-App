@@ -14,7 +14,7 @@
  * @param resultData jsonObject
  */
 function handleMoviesResult(resultData) {
-    console.log("handleMoviesResult: populating movie table from resultData");
+    console.log("handleMoviesResult: populating movies table from resultData");
 
     // Populate the star table
     // Find the empty table body by id "star_table_body"
@@ -62,7 +62,7 @@ function handleMoviesResult(resultData) {
  * Once this .js is loaded, following scripts will be executed by the browser
  */
 
-// Makes the HTTP GET request and registers on success callback function handleMovieResult
+// Makes the HTTP GET request and registers on success callback function handleMoviesResult
 jQuery.ajax({
     dataType: "json", // Setting return data type
     method: "GET", // Setting request method
