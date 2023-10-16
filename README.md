@@ -1,6 +1,6 @@
 Project 1:
 
-Demo Video: https://www.youtube.com/watch?v=iCwLbtRuEsM
+Demo Video: https://youtu.be/VKuoECgadOM
 
 Contributions:
 - Weiguang Wu: project setup, implemented movie list page and jump functionality, recorded demo
