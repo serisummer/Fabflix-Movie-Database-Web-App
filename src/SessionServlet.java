@@ -1,4 +1,3 @@
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -38,20 +37,6 @@ public class SessionServlet extends HttpServlet {
         String password = request.getParameter("password");
         request.getServletContext().log("login attempt by: " + email + " using password: " + password);
 
-        // Get a instance of current session on the request
-        HttpSession session = request.getSession(true);
-
-        // Retrieve data named "accessCount" from session, which count how many times the user requested before
-        Integer accessCount = (Integer) session.getAttribute("accessCount");
-
-        if (accessCount == null) {
-            accessCount = 0;
-        } else {
-            accessCount++;
-        }
-        // Update the new accessCount to session, replacing the old value if existed
-        session.setAttribute("accessCount", accessCount);
-
         try (Connection conn = dataSource.getConnection()) {
             String query = "select * from customers where email like ? and password like ?";
             PreparedStatement statement = conn.prepareStatement(query);
@@ -59,21 +44,31 @@ public class SessionServlet extends HttpServlet {
             statement.setString(2, password);
             ResultSet rs = statement.executeQuery();
 
-            while (rs.next()) {
-                String id = rs.getString("id");
-                String firstName = rs.getString("firstName");
-                String lastName = rs.getString("lastName");
-                String ccId = rs.getString("ccId");
-                String address = rs.getString("address");
-                out.println(String.format("<ul>" +
-                        "<li>%s</li>" +
-                        "<li>%s</li>" +
-                        "<li>%s</li>" +
-                        "<li>%s</li>" +
-                        "<li>%s</li>" +
-                        "<li>%s</li>" +
-                        "</ul>", id, firstName, lastName, ccId, address, accessCount));
+            if (rs.next()) {
+                // Get a instance of current session on the request
+                HttpSession session = request.getSession(true);
+
+                // Retrieve data named "accessCount" from session, which count how many times the user requested before
+                Integer accessCount = (Integer) session.getAttribute("accessCount");
+
+                if (accessCount == null) {
+                    accessCount = 0;
+                } else {
+                    accessCount++;
+                }
+                // Update the new accessCount to session, replacing the old value if existed
+                session.setAttribute("accessCount", accessCount);
+                response.sendRedirect("/cs122b_project1_api_example_war/index.html");
             }
+            else {
+                request.getRequestDispatcher("/").include(request, response);
+                out.println(
+                        "<script>" +
+                        "document.getElementById('errorMessage').innerHTML='Incorrect email or password';" +
+                        "</script>"
+                );
+            }
+
             rs.close();
             statement.close();
 
