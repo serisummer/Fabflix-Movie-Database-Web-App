@@ -15,8 +15,8 @@
 <body>
 
 <h1>Shopping Cart</h1>
-<a href="index.html">Back to main page</a>
-<table id=movies_table class="table table-striped">
+<a href="index.html">Home</a>
+<table id=items_table class="table table-striped">
     <!-- Create a table header -->
     <thead>
     <tr>
@@ -31,10 +31,8 @@
     </thead>
     <!-- Table body is left empty here, will be populated with the data retrieved with index.js -->
     <!-- Again, id "movies_table_body" is useful for jQuery to find this html element -->
-    <tbody id=movies_table_body></tbody>
+    <tbody id=items_table_body></tbody>
 </table>
-
-<div id="item_list"></div>
 
 <!-- Load jQuery and Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -42,6 +40,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 <script src="cart.js"></script>
+<script src="submitCart.js"></script>
 </body>
 
 

@@ -23,18 +23,43 @@ function handleSessionData(resultDataString) {
  */
 function handleCartArray(resultArray) {
     console.log(resultArray);
-    let item_list = $("#item_list");
-    // change it to html list
-    let res = "<ul>";
+    let itemsTableBodyElement = $("#items_table_body");
     for (let i = 0; i < resultArray.length; i++) {
-        // each item will be in a bullet point
-        res += "<li>" + resultArray[i] + "</li>";
-    }
-    res += "</ul>";
+        let rowHTML = "";
+        rowHTML += "<tr>";
+        rowHTML += "<th>" + resultArray[i]["title"] + "</th>";
+        rowHTML += "<th>" + resultArray[i]["unitPrice"] + "</th>";
+        rowHTML += "<th>" + resultArray[i]["totalPrice"] + "</th>";
+        rowHTML += "<th>" + resultArray[i]["quantity"] + "</th>";
 
-    // clear the old array and show the new array in the frontend
-    item_list.html("");
-    item_list.append(res);
+        rowHTML += "<th>";
+        rowHTML += "<form class='cart' method='post'>" +
+                        "<input type='hidden' name='itemId' value='" + resultArray[i]["id"] + "'>" +
+                        "<input type='hidden' name='itemTitle' value='" + resultArray[i]["title"] + "'>" +
+                        "<input type='hidden' name='actionType' value='add'>" +
+                        "<input type='submit' value='+'>" +
+                    "</form>";
+        rowHTML += "<form class='cart' method='post'>" +
+                        "<input type='hidden' name='itemId' value='" + resultArray[i]["id"] + "'>" +
+                        "<input type='hidden' name='itemTitle' value='" + resultArray[i]["title"] + "'>" +
+                        "<input type='hidden' name='actionType' value='remove'>" +
+                        "<input type='submit' value='-'>" +
+                    "</form>";
+        rowHTML += "</th>";
+
+        rowHTML += "<th>";
+        rowHTML += "<form class='cart' method='post'>" +
+            "<input type='hidden' name='itemId' value='" + resultArray[i]["id"] + "'>" +
+            "<input type='hidden' name='itemTitle' value='" + resultArray[i]["title"] + "'>" +
+            "<input type='hidden' name='actionType' value='delete'>" +
+            "<input type='submit' value='Delete'>" +
+            "</form>";
+        rowHTML += "</th>";
+
+        rowHTML += "</tr>";
+        itemsTableBodyElement.append(rowHTML);
+    }
+    $('.cart').submit(handleCartSubmitShoppingCart);
 }
 
 $.ajax("api/cart", {
