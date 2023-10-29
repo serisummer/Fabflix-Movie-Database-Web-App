@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 
 // Declaring a WebServlet called GenreServlet, which maps to url "/api/genres"
-@WebServlet(name = "MoviesServlet", urlPatterns = "/api/genres")
+@WebServlet(name = "GenreServlet", urlPatterns = "/api/genres")
 public class GenreServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

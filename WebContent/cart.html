@@ -1,10 +1,48 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Fabflix</title>
 </head>
 <body>
 
+<h1>Shopping Cart</h1>
+<a href="index.html">Back to main page</a>
+<table id=movies_table class="table table-striped">
+    <!-- Create a table header -->
+    <thead>
+    <tr>
+        <!-- Titles of each column-->
+        <th>Title</th>
+        <th>Unit Price</th>
+        <th>Total Price</th>
+        <th>Quantity</th>
+        <th>Change Quantity</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <!-- Table body is left empty here, will be populated with the data retrieved with index.js -->
+    <!-- Again, id "movies_table_body" is useful for jQuery to find this html element -->
+    <tbody id=movies_table_body></tbody>
+</table>
+
+<div id="item_list"></div>
+
+<!-- Load jQuery and Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script src="cart.js"></script>
 </body>
+
+
 </html>

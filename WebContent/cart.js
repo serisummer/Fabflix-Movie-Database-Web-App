@@ -1,8 +1,7 @@
 /**
- * Handle the data returned by CartServlet
+ * Handle the data returned by IndexServlet
  * @param resultDataString jsonObject, consists of session info
  */
-
 function handleSessionData(resultDataString) {
     let resultDataJson = JSON.parse(resultDataString);
 
@@ -14,7 +13,7 @@ function handleSessionData(resultDataString) {
     $("#sessionID").text("Session ID: " + resultDataJson["sessionID"]);
     $("#lastAccessTime").text("Last access time: " + resultDataJson["lastAccessTime"]);
 
-    // show addToCart information
+    // show cart information
     handleCartArray(resultDataJson["previousItems"]);
 }
 
@@ -38,28 +37,7 @@ function handleCartArray(resultArray) {
     item_list.append(res);
 }
 
-/**
- * Submit form content with POST method
- * @param cartEvent
- */
-function handleCartInfo(cartEvent) {
-    console.log("submit addToCart form");
-    /**
-     * When users click the submit button, the browser will not direct
-     * users to the url defined in HTML form. Instead, it will call this
-     * event handler when the event is triggered.
-     */
-    cartEvent.preventDefault();
-
-    $.ajax("api/cart", {
-        method: "POST",
-        data: $(this).serialize(),
-        success: resultDataString => {
-            let resultDataJson = JSON.parse(resultDataString);
-            handleCartArray(resultDataJson["previousItems"]);
-        }
-    });
-}
-
-let addToCart = $('#addToCart');
-addToCart.submit(handleCartInfo);
+$.ajax("api/cart", {
+    method: "GET",
+    success: handleSessionData
+});

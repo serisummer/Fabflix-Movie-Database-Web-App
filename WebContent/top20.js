@@ -36,7 +36,7 @@ function handleMoviesResult(resultData) {
         rowHTML += "<th>" + resultData[i]["year"] + "</th>";
         rowHTML += "<th>" + resultData[i]["director"] + "</th>";
         rowHTML += "<th>" + resultData[i]["genres"] + "</th>";
-        console.log(resultData[i]["starIds"]);
+
         const starStrings = resultData[i]["stars"].split(", ");
         const starIdStrings = resultData[i]["starIds"].split(", ");
         rowHTML += "<th>";
@@ -53,10 +53,10 @@ function handleMoviesResult(resultData) {
         rowHTML += "<th>" + resultData[i]["rating"] + "</th>";
 
         rowHTML += "<th>";
-        rowHTML += "<form class='addToCart' method='post'>" +
-            "<input type='hidden' name='item' value='" + resultData[i]["title"] + "'>" +
-            "<input type='submit' value='Add'>" +
-            "</form>";
+        rowHTML += "<form class='cart' method='post'>" +
+                        "<input type='hidden' name='item' value='" + resultData[i]["title"] + "'>" +
+                        "<input type='submit' value='Add'>" +
+                    "</form>";
         rowHTML += "</th>";
 
         rowHTML += "</tr>";
@@ -64,6 +64,7 @@ function handleMoviesResult(resultData) {
         // Append the row created to the table body, which will refresh the page
         moviesTableBodyElement.append(rowHTML);
     }
+    $('.cart').submit(handleCartSubmit);
 }
 
 /**
