@@ -1,71 +1,56 @@
-/**
- * This example is following frontend and backend separation.
- *
- * Before this .js is loaded, the html skeleton is created.
- *
- * This .js performs two steps:
- *      1. Use jQuery to talk to backend API to get the json data.
- *      2. Populate the data to correct html elements.
- */
+$(document).ready(function () {
 
+    /* this code uses jQuery to populate the character list since it's easier than individually creating all the <li> for each character */
+    var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*";
+    var charList = $("#browse-by-title-list");
 
-/**
- * Handles the data returned by the API, read the jsonObject and populate data into html elements
- * @param resultData jsonObject
- */
-function handleMoviesResult(resultData) {
-    console.log("handleMoviesResult: populating movies table from resultData");
-
-    // Populate the star table
-    // Find the empty table body by id "star_table_body"
-    let moviesTableBodyElement = jQuery("#movies_table_body");
-
-    // Iterate through resultData, no more than 20 entries
-    for (let i = 0; i < resultData.length; i++) {
-
-        // Concatenate the html tags with resultData jsonObject
-        let rowHTML = "";
-        rowHTML += "<tr>";
-        rowHTML +=
-            "<th>" +
-            // Add a link to single-star.html with id passed with GET url parameter
-            '<a href="single-movie.html?id=' + resultData[i]['id'] + '">'
-            + resultData[i]["title"] +     // display title for the link text
-            '</a>' +
-            "</th>";
-        rowHTML += "<th>" + resultData[i]["year"] + "</th>";
-        rowHTML += "<th>" + resultData[i]["director"] + "</th>";
-        rowHTML += "<th>" + resultData[i]["genres"] + "</th>";
-        console.log(resultData[i]["starIds"]);
-        const starStrings = resultData[i]["stars"].split(", ");
-        const starIdStrings = resultData[i]["starIds"].split(", ");
-        rowHTML += "<th>";
-        for (let j = 0; j < starStrings.length; j++) {
-            rowHTML +=
-                '<a href="single-star.html?id=' + starIdStrings[j] + '">'
-                + starStrings[j] + '</a>';
-            if (j < starStrings.length-1) {
-                rowHTML += ", ";
-            }
-        }
-        rowHTML += "<th>" + resultData[i]["rating"] + "</th>";
-        rowHTML += "</th>";
-        rowHTML += "</tr>";
-
-        // Append the row created to the table body, which will refresh the page
-        moviesTableBodyElement.append(rowHTML);
+    for (var i = 0; i < characters.length; i++) {
+        var prefix = characters[i];
+        // need to make
+        let url = `list.html?prefix=${prefix}`
+        var letterHTML = "<li><a href=" + url + ">" + prefix + "</a></li>"
+        charList.append(letterHTML);
     }
-}
 
+    function handleGenres(resultData){
+        console.log("handleGenres: population genre block from resultData");
 
-/**
- * Once this .js is loaded, following scripts will be executed by the browser
- */
+        let genreList = $("#browse-by-genre-list");
+        for (let i = 0; i < resultData.length; i++) {
+            var genre = resultData[i];
+            let url = `list.html?genre=${genre}`
+            var genreHTML = "<li><a href=" + url + ">" + genre + "</a></li>"
+            genreList.append(genreHTML);
+        }
+    }
 
-// Makes the HTTP GET request and registers on success callback function handleMoviesResult
-jQuery.ajax({
-    dataType: "json", // Setting return data type
-    method: "GET", // Setting request method
-    url: "api/movies", // Setting request url, which is mapped by MoviesServlet in Movies.java
-    success: (resultData) => handleMoviesResult(resultData) // Setting callback function to handle data returned successfully by the MoviesServlet
+    let searchForm = $("#search-form"); // Use jQuery selector to select the form
+    searchForm.on("submit", function(event) {
+        event.preventDefault();
+        var title = $("#search-title").val(); // Use jQuery to get input values
+        var year = $("#search-year").val();
+        var director = $("#search-director").val();
+        var star = $("#search-star").val();
+
+        // Construct the URL
+        var url = "list.html?title=" + encodeURIComponent(title) +
+            "&year=" + encodeURIComponent(year) +
+            "&director=" + encodeURIComponent(director) +
+            "&star=" + encodeURIComponent(star);
+
+        // Redirect the user to the new URL
+        console.log(url)
+        window.location.href = url;
+    });
+
+    // Makes the HTTP GET request and registers the success callback function handleMoviesResult
+    jQuery.ajax({
+        dataType: "json", // Setting return data type
+        method: "GET", // Setting request method
+        url: "api/genres", // Setting request URL, which is mapped by GenresServlet in GenreServlet.java
+        success: (resultData) => handleGenres(resultData) // Setting callback function to handle data returned successfully by the MoviesServlet
+    });
+
 });
+
+
