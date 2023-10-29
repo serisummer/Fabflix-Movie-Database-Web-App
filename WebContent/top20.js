@@ -53,7 +53,7 @@ function handleMoviesResult(resultData) {
         rowHTML += "<th>" + resultData[i]["rating"] + "</th>";
 
         rowHTML += "<th>";
-        rowHTML += "<form class='cart' method='post'>" +
+        rowHTML += "<form class='addToCart' method='post'>" +
             "<input type='hidden' name='item' value='" + resultData[i]["title"] + "'>" +
             "<input type='submit' value='Add'>" +
             "</form>";

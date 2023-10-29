@@ -14,7 +14,7 @@ function handleSessionData(resultDataString) {
     $("#sessionID").text("Session ID: " + resultDataJson["sessionID"]);
     $("#lastAccessTime").text("Last access time: " + resultDataJson["lastAccessTime"]);
 
-    // show cart information
+    // show addToCart information
     handleCartArray(resultDataJson["previousItems"]);
 }
 
@@ -43,7 +43,7 @@ function handleCartArray(resultArray) {
  * @param cartEvent
  */
 function handleCartInfo(cartEvent) {
-    console.log("submit cart form");
+    console.log("submit addToCart form");
     /**
      * When users click the submit button, the browser will not direct
      * users to the url defined in HTML form. Instead, it will call this
@@ -61,5 +61,5 @@ function handleCartInfo(cartEvent) {
     });
 }
 
-let cart = $('#cart');
-cart.submit(handleCartInfo);
+let addToCart = $('#addToCart');
+addToCart.submit(handleCartInfo);
