@@ -48,15 +48,23 @@ function handleMoviesResult(resultData) {
                 rowHTML += ", ";
             }
         }
-        rowHTML += "<th>" + resultData[i]["rating"] + "</th>";
         rowHTML += "</th>";
+
+        rowHTML += "<th>" + resultData[i]["rating"] + "</th>";
+
+        rowHTML += "<th>";
+        rowHTML += "<form class='cart' method='post'>" +
+                    "<input type='hidden' name='item' value='" + resultData[i]["title"] + "'>" +
+                    "<input type='submit' value='Add'>" +
+                    "</form>";
+        rowHTML += "</th>";
+
         rowHTML += "</tr>";
 
         // Append the row created to the table body, which will refresh the page
         moviesTableBodyElement.append(rowHTML);
     }
 }
-
 
 /**
  * Once this .js is loaded, following scripts will be executed by the browser
