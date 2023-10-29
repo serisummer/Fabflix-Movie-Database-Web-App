@@ -1,0 +1,82 @@
+#header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #0056b3;
+    color: #FFF;
+    padding: 10px;
+}
+
+#header a{
+    text-decoration: none; /* Remove underline from links */
+    background-color: gold; /* Background color for links */
+    color: black; /* Text color for links */
+    padding: 5px 10px; /* Add padding to links for better clickability */
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+
+#header form{
+    margin: 0;
+}
+
+#search {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+#search:focus {
+    outline: none;
+}
+
+#search-button {
+    background-color: gold;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#search-button:hover {
+    color: red;
+}
+
+
+.main-page-container{
+    text-align: center;
+    overflow: hidden;
+    padding-top: 50px;
+    padding-bottom: 10px;
+}
+
+
+ul{
+    list-style: none; /* Remove list bullets */
+    padding: 0;
+    max-width: 40%;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+li {
+    margin-right: 10px; /* Add some spacing between list items */
+    float: left;
+    margin-top: 12px;
+}
+
+#browse-by-title-list a {
+    text-decoration: none; /* Remove underline from links */
+    background-color: #0056b3; /* Background color for links */
+    color: #FFF; /* Text color for links */
+    padding: 5px 10px; /* Add padding to links for better clickability */
+    border-radius: 5px; /* Round the corners of links */
+}
+
+#browse-by-title-list a:hover {
+    background-color: gold; /* Change background color on hover */
+    color: black
+}
