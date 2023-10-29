@@ -12,6 +12,7 @@ function handleSessionData(resultDataString) {
     // show the session information
     $("#sessionID").text("Session ID: " + resultDataJson["sessionID"]);
     $("#lastAccessTime").text("Last access time: " + resultDataJson["lastAccessTime"]);
+    $('#totalCartPrice').text("Total Cart Price: $" + resultDataJson["totalCartPrice"]);
 
     // show cart information
     handleCartArray(resultDataJson["previousItems"]);
@@ -24,12 +25,13 @@ function handleSessionData(resultDataString) {
 function handleCartArray(resultArray) {
     console.log(resultArray);
     let itemsTableBodyElement = $("#items_table_body");
+
     for (let i = 0; i < resultArray.length; i++) {
         let rowHTML = "";
         rowHTML += "<tr>";
         rowHTML += "<th>" + resultArray[i]["title"] + "</th>";
-        rowHTML += "<th>" + resultArray[i]["unitPrice"] + "</th>";
-        rowHTML += "<th>" + resultArray[i]["totalPrice"] + "</th>";
+        rowHTML += "<th>$" + resultArray[i]["unitPrice"] + "</th>";
+        rowHTML += "<th>$" + resultArray[i]["totalPrice"] + "</th>";
         rowHTML += "<th>" + resultArray[i]["quantity"] + "</th>";
 
         rowHTML += "<th>";

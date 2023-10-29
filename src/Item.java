@@ -50,11 +50,11 @@ public class Item {
     public void change(int num) {
         if (num == 1) {
             this.quantity += num;
-            this.totalPrice = this.totalPrice.add(this.unitPrice);
+            this.totalPrice = this.totalPrice.add(this.unitPrice).setScale(2, RoundingMode.HALF_UP);
         }
         else if (num == -1 && this.quantity > 1){
             this.quantity += num;
-            this.totalPrice = this.totalPrice.subtract(this.unitPrice);
+            this.totalPrice = this.totalPrice.subtract(this.unitPrice).setScale(2, RoundingMode.HALF_UP);
         }
     }
 

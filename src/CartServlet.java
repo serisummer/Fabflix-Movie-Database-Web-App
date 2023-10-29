@@ -12,6 +12,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -40,7 +42,10 @@ public class CartServlet extends HttpServlet {
         // Log to localhost log
         request.getServletContext().log("getting " + previousItems.size() + " items");
         JsonArray previousItemsJsonArray = new JsonArray();
-        previousItems.forEach(item -> {
+
+        BigDecimal totalCartPrice = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
+        for (Item item : previousItems) {
+            totalCartPrice = totalCartPrice.add(item.getTotalPrice()).setScale(2, RoundingMode.HALF_UP);
             JsonObject itemJsonObject = new JsonObject();
             itemJsonObject.addProperty("id", item.getId());
             itemJsonObject.addProperty("title", item.getTitle());
@@ -48,7 +53,8 @@ public class CartServlet extends HttpServlet {
             itemJsonObject.addProperty("unitPrice", item.getUnitPrice().toString());
             itemJsonObject.addProperty("totalPrice", item.getTotalPrice().toString());
             previousItemsJsonArray.add(itemJsonObject);
-        });
+        }
+        responseJsonObject.addProperty("totalCartPrice", totalCartPrice.toString());
         responseJsonObject.add("previousItems", previousItemsJsonArray);
 
         // write all the data into the jsonObject
