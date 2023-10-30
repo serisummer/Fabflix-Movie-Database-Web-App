@@ -1,20 +1,25 @@
-/**
- * This example is following frontend and backend separation.
- *
- * Before this .js is loaded, the html skeleton is created.
- *
- * This .js performs three steps:
- *      1. Get parameter from request URL so it know which id to look for
- *      2. Use jQuery to talk to backend API to get the json data.
- *      3. Populate the data to correct html elements.
- */
+$(document).ready(function (){
+    let searchForm = $("#search-form"); // Use jQuery selector to select the form
+    searchForm.on("submit", function(event) {
+        event.preventDefault();
+        var title = $("#search-title").val(); // Use jQuery to get input values
+        var year = $("#search-year").val();
+        var director = $("#search-director").val();
+        var star = $("#search-star").val();
+
+        // Construct the URL
+        var url = "list.html?title=" + encodeURIComponent(title) +
+            "&year=" + encodeURIComponent(year) +
+            "&director=" + encodeURIComponent(director) +
+            "&star=" + encodeURIComponent(star);
+
+        // Redirect the user to the new URL
+        console.log(url)
+        window.location.href = url;
+    })
+})
 
 
-/**
- * Retrieve parameter from request URL, matching by parameter name
- * @param target String
- * @returns {*}
- */
 function getParameterByName(target) {
     // Get request URL
     let url = window.location.href;
@@ -37,40 +42,24 @@ function getParameterByName(target) {
  */
 
 function handleResult(resultData) {
+    console.log("handleResult (single-movie): populating movie info from resultData");
+    console.log(resultData)
 
-    console.log("handleResult: populating movie info from resultData");
+    let movie_title = $("#movie-name")
+    let movie = resultData[0];
 
-    console.log("handleResult: populating movie table from resultData");
+    movie_title.text(`${movie.title}(${movie.year})`)
 
-    // Populate the star table
-    // Find the empty table body by id "movie_table_body"
-    let movieTableBodyElement = jQuery("#movie_table_body");
+    let moviesTableBodyElement = $("#movie_table_body");
 
-    // Concatenate the html tags with resultData jsonObject to create table rows
-    for (let i = 0; i < resultData.length; i++) {
-        let rowHTML = "";
-        rowHTML += "<tr>";
-        rowHTML += "<th>" + resultData[i]["movie_title"] + "</th>";
-        rowHTML += "<th>" + resultData[i]["movie_year"] + "</th>";
-        rowHTML += "<th>" + resultData[i]["movie_director"] + "</th>";
-        rowHTML += "<th>" + resultData[i]["genres"] + "</th>";
-        const starStrings = resultData[i]["stars"].split(", ");
-        const starIdStrings = resultData[i]["starIds"].split(", ");
-        rowHTML += "<th>";
-        for (let j = 0; j < starStrings.length; j++) {
-            rowHTML +=
-                '<a href="single-star.html?id=' + starIdStrings[j] + '">'
-                + starStrings[j] + '</a>';
-            if (j < starStrings.length-1) {
-                rowHTML += ", ";
-            }
-        }
-        rowHTML += "<th>" + resultData[i]["rating"] + "</th>";
-        rowHTML += "</tr>";
-
-        // Append the row created to the table body, which will refresh the page
-        movieTableBodyElement.append(rowHTML);
-    }
+    let rowHTML = "<tr>";
+    rowHTML += ("<th>" + movie.director +"</th>")
+    rowHTML += ("<th>" + parseGenres(movie.genres) +"</th>")
+    rowHTML += ("<th>" + parseStars(movie.stars) +"</th>")
+    rowHTML += ("<th>" + movie.rating +"</th>")
+    rowHTML += ('<th>Add To Cart</th>')
+    rowHTML += ("</tr>")
+    moviesTableBodyElement.append(rowHTML);
 }
 
 /**
@@ -87,3 +76,28 @@ jQuery.ajax({
     url: "api/single-movie?id=" + movieId, // Setting request url, which is mapped by SingleMovieServlet in single-movie.java
     success: (resultData) => handleResult(resultData) // Setting callback function to handle data returned successfully by the SingleMovieServlet
 });
+function parseGenres(genres){
+    let genresArray = genres.split(",")
+    let finalHTML = ""
+    for (let i = 0; i < genresArray.length; i++) {
+        g = genresArray[i]
+        html = `<a href=list.html?genre=${g}>${g}</a> `
+        finalHTML+=html
+    }
+    return finalHTML;
+}
+
+function parseStars(stars){
+    finalHTML = ""
+    let starsArray = stars.split(",");
+    for (let i = 0; i < starsArray.length; i++) {
+        var pair = starsArray[i];
+        pair = pair.substring(1, pair.length-1);
+        var data = pair.split("$")
+        var star = data[0];
+        var id = data[1]
+        finalHTML+= `<a href=single-star.html?id=${id}>${star}, </a> `
+    }
+    return finalHTML
+}
+

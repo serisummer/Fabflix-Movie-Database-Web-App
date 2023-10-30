@@ -6,40 +6,6 @@
     -->
 
 <!doctype html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <title>Single movie</title>
-</head>
-<body>
-<h1>Single Movie Page</h1>
-<a href="top20.html">back to movie list page</a>
-<!-- H3 body is left empty here, will be populated with the data retrieved with single-movie.js -->
-<!-- single-movie.js will find this html element by it's id "movie_info" -->
-<table id=movie_table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Year</th>
-        <th>Director</th>
-        <th>Genres</th>
-        <th>Stars</th>
-        <th>Rating</th>
-    </tr>
-    </thead>
-
-    <!-- Table body is left empty here, will be populated with the data retrieved with single-movie.js -->
-    <!-- single-movie.js will find this html element by it's id "movie_table_body" -->
-    <tbody id=movie_table_body></tbody>
-</table>
 
 <!-- Load jQuery and Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -51,6 +17,51 @@
 <!-- Note the url does not contain a "/" in the beginning, which means the url is relative to current path
      otherwise the url is relative to the root path-->
 <script src="single-movie.js"></script>
+
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="index.css">
+
+    <title>Single movie</title>
+</head>
+    <body>
+    <div id="header">
+        <a href="index.html">Home</a>
+        <a href="top20.html">Top 20</a>
+        <a href="#">Checkout</a>
+
+        <form id = "search-form" method="GET">
+            <input type="text" id="search-title" name="title" placeholder="Movie Title">
+            <input type="text" id="search-year" name="year" placeholder="Release Year">
+            <input type="text" id="search-director" name="director" placeholder="Director">
+            <input type="text" id="search-star" name="star" placeholder="Star's Name">
+            <button id="search-button" type="submit" value="Search">Search</button>
+        </form>
+    </div>
+    <!-- H3 body is left empty here, will be populated with the data retrieved with single-movie.js -->
+    <!-- single-movie.js will find this html element by it's id "movie_info" -->
+    <h1 id="movie-name"></h1>
+    <table id="movie_table" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Director</th>
+            <th>Genres</th>
+            <th>Stars</th>
+            <th>Rating</th>
+            <th>Cart</th>
+        </tr>
+        </thead>
+        <tbody id="movie_table_body"></tbody>
+    </table>
+
 </body>
 
 

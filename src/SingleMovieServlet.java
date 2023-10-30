@@ -53,12 +53,22 @@ public class SingleMovieServlet extends HttpServlet {
             // Get a connection from dataSource
 
             // Construct a query with parameter represented by "?"
-            String query = "SELECT * " +
-                    "from movies as m, ratings as r, genres as g, genres_in_movies as gim, " +
-                    "stars as s, stars_in_movies as sim " +
-                    "WHERE m.id = ? AND r.movieId = m.id " +
-                    "AND gim.movieId = m.id AND gim.genreId = g.id " +
-                    "AND sim.movieId = m.id AND sim.starId = s.id";
+            String query = "SELECT m.title, m.id, m.year, m.director, " +
+                    "GROUP_CONCAT(DISTINCT g.name ORDER BY g.name ASC) AS genres, " +
+                    "GROUP_CONCAT(DISTINCT CONCAT('(', s.name, '$', s.id, ')') ORDER BY star_freq.frequency DESC, s.name ASC) AS stars, r.rating " +
+                    "FROM movies m " +
+                    "LEFT JOIN genres_in_movies gm ON m.id = gm.movieId " +
+                    "LEFT JOIN genres g ON gm.genreId = g.id " +
+                    "LEFT JOIN stars_in_movies sm ON m.id = sm.movieId " +
+                    "LEFT JOIN stars s ON sm.starId = s.id " +
+                    "LEFT JOIN ratings r ON m.id = r.movieId " +
+                    "LEFT JOIN (" +
+                    "SELECT si.starId, COUNT(*) AS frequency " +
+                    "FROM stars_in_movies si " +
+                    "GROUP BY si.starId" +
+                    ") AS star_freq ON s.id = star_freq.starId " +
+                    "WHERE m.id = ? " +
+                    "GROUP BY m.title, m.id, m.year, m.director, r.rating";
 
             // Declare our statement
             PreparedStatement statement = conn.prepareStatement(query);
@@ -78,35 +88,17 @@ public class SingleMovieServlet extends HttpServlet {
             String starIds = "";
             JsonObject jsonObject = new JsonObject();
             while (rs.next()) {
-                String movieId = rs.getString("movieId");
-                String movieTitle = rs.getString("title");
-                String movieYear = rs.getString("year");
-                String movieDirector = rs.getString("director");
-                String rating = rs.getString("rating");
-                String genre = rs.getString("g.name") + ", ";
-                if (!genres.contains(genre)) {
-                    genres += genre;
-                }
-                String star = rs.getString("s.name") + ", ";
-                if (!stars.contains(star)) {
-                    stars += star;
-                }
-                String starId = rs.getString("starId") + ", ";
-                if (!starIds.contains(starId)) {
-                    starIds += starId;
-                }
+                JsonObject movieJson = new JsonObject();
+                movieJson.addProperty("title", rs.getString("title"));
+                movieJson.addProperty("year", rs.getInt("year"));
+                movieJson.addProperty("director", rs.getString("director"));
+                movieJson.addProperty("genres", rs.getString("genres"));
+                movieJson.addProperty("stars", rs.getString("stars"));
+                movieJson.addProperty("rating", rs.getFloat("rating"));
 
-                // Create a JsonObject based on the data we retrieve from rs
-                jsonObject.addProperty("movie_id", movieId);
-                jsonObject.addProperty("movie_title", movieTitle);
-                jsonObject.addProperty("movie_year", movieYear);
-                jsonObject.addProperty("movie_director", movieDirector);
-                jsonObject.addProperty("rating", rating);
+                jsonArray.add(movieJson);
             }
-            jsonObject.addProperty("genres", genres.substring(0, genres.length()-2));
-            jsonObject.addProperty("stars", stars.substring(0, stars.length()-2));
-            jsonObject.addProperty("starIds", starIds.substring(0, starIds.length()-2));
-            jsonArray.add(jsonObject);
+
 
             rs.close();
             statement.close();
