@@ -45,6 +45,13 @@ public class MoviesByGenreServlet extends HttpServlet {
 
         // getting request parameters
         String genre = request.getParameter("genre");
+        String sort = request.getParameter("sort");
+
+        // pagination
+        int moviesPerPage = Integer.parseInt(request.getParameter("n"));
+        int currentPage = Integer.parseInt(request.getParameter("page"));
+        int offset = (currentPage - 1) * moviesPerPage;
+
 
         // Check if the genre parameter is not null and not empty
         if (genre == null || genre.isEmpty()) {
@@ -56,24 +63,30 @@ public class MoviesByGenreServlet extends HttpServlet {
         // Get a connection from dataSource and let resource manager close the connection after usage.
         try (Connection conn = dataSource.getConnection()) {
 
-            String query = "SELECT m.title, m.year, m.director, " +
+            String query = "SELECT m.title, m.id, m.year, m.director, " +
                     "GROUP_CONCAT(DISTINCT g.name ORDER BY g.name ASC) AS genres, " +
-                    "GROUP_CONCAT(DISTINCT s.name ORDER BY s.name ASC) AS stars, r.rating " +
+                    "GROUP_CONCAT(DISTINCT CONCAT('(', s.name, '$', s.id, ')') ORDER BY star_freq.frequency DESC, s.name ASC) AS stars, r.rating " +
                     "FROM movies m " +
                     "JOIN genres_in_movies gm ON m.id = gm.movieId " +
                     "JOIN genres g ON gm.genreId = g.id " +
                     "JOIN stars_in_movies sm ON m.id = sm.movieId " +
                     "JOIN stars s ON sm.starId = s.id " +
                     "LEFT JOIN ratings r ON m.id = r.movieId " +
+                    "LEFT JOIN (" +
+                    "SELECT si.starId, COUNT(*) AS frequency " +
+                    "FROM stars_in_movies si " +
+                    "GROUP BY si.starId" +
+                    ") AS star_freq ON s.id = star_freq.starId " +
                     "WHERE m.id IN (" +
                     "SELECT DISTINCT m.id " +
                     "FROM movies m " +
                     "JOIN genres_in_movies gm ON m.id = gm.movieId " +
                     "JOIN genres g ON gm.genreId = g.id " +
                     "WHERE g.name = ? )" +
-                    "GROUP BY m.title, m.year, m.director, r.rating " +
-                    "ORDER BY COUNT(sm.movieId) DESC, m.title ASC ";
+                    "GROUP BY m.title, m.id, m.year, m.director, r.rating ";
 
+            query += parseSort(sort);
+            query += " LIMIT " + moviesPerPage + " OFFSET " + offset;
             //prepare query
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             preparedStatement.setString(1, genre);
@@ -89,6 +102,7 @@ public class MoviesByGenreServlet extends HttpServlet {
                 //DEBUG
                 JsonObject movieJson = new JsonObject();
                 movieJson.addProperty("title", rs.getString("title"));
+                movieJson.addProperty("id", rs.getString("id"));
                 movieJson.addProperty("year", rs.getInt("year"));
                 movieJson.addProperty("director", rs.getString("director"));
                 movieJson.addProperty("genres", rs.getString("genres"));
@@ -124,5 +138,24 @@ public class MoviesByGenreServlet extends HttpServlet {
         // Always remember to close db connection after usage. Here it's done by try-with-resources
 
     }
+    public String parseSort(String sort){
+        if (sort.equals("1")){
+            return "ORDER BY m.title ASC, r.rating DESC";
+        } else if (sort.equals("2")) {
+            return "ORDER BY m.title ASC, r.rating ASC";
+        } else if (sort.equals("3")) {
+            return "ORDER BY m.title DESC, r.rating DESC";
+        } else if (sort.equals("4")) {
+            return "ORDER BY m.title DESC, r.rating ASC";
+        } else if (sort.equals("5")) {
+            return "ORDER BY r.rating DESC, m.title ASC";
+        } else if (sort.equals("6")) {
+            return "ORDER BY r.rating DESC, m.title DESC";
+        } else if (sort.equals("7")) {
+            return "ORDER BY r.rating ASC, m.title ASC";
+        } else  {
+            return "ORDER BY r.rating ASC, m.title DESC";
+        }
+    };
 }
 

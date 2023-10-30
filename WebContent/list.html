@@ -27,16 +27,18 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="index.css">
 
     <title>Result</title>
 </head>
 
 <body>
     <div id="header">
+        <a href="index.html">Home</a>
         <a href="top20.html">Top 20</a>
         <a href="#">Checkout</a>
 
-        <form id = "search-form" action="#" method="GET">
+        <form id = "search-form" method="GET">
             <input type="text" id="search-title" name="title" placeholder="Movie Title">
             <input type="text" id="search-year" name="year" placeholder="Release Year">
             <input type="text" id="search-director" name="director" placeholder="Director">
@@ -44,8 +46,43 @@
             <button id="search-button" type="submit" value="Search">Search</button>
         </form>
     </div>
+    <div id="result-table-header">
+        <h1>Result</h1>
+        <form id="filter-form">
+            <!-- sorting stuffs-->
+            <label for="sort-by">Sort by:</label>
+            <select id="sort-by" name="sort">
+                <option value=1>Title (A-Z) + Rating Desc</option>
+                <option value=2>Title (A-Z) + Rating Asc</option>
+                <option value=3>Title (Z-A) + Rating Desc</option>
+                <option value=4>Title (Z-A) + Rating Asc</option>
+                <option value=5>Rating Desc + Title (A-Z)</option>
+                <option value=6>Rating Desc + Title (Z-A)</option>
+                <option value=7>Rating Asc + Title (A-Z)</option>
+                <option value=8>Rating Asc + Title (Z-A)</option>
+            </select>
 
-    <h1>Result</h1>
+            <!--pagination-->
+            <label for="movies-per-page">Movies per page:</label>
+            <select id="movies-per-page" name="n">
+                <option value=10>10</option>
+                <option value=25>25</option>
+                <option value=50>50</option>
+                <option value=100>100</option>
+            </select>
+
+            <input type="submit" value="Apply Filters">
+
+        </form>
+
+        <div id="pagination-controls">
+            <button id="prev-button">Previous</button>
+            <p id = "current-page"></p>
+            <button id="next-button">Next</button>
+        </div>
+
+    </div>
+
     <!-- Id "movies_table" is useful for jQuery to find the html element with id, class here is mapping to Bootstrap defined class CSS -->
     <table id="movies_table" class="table table-striped">
         <!-- Create a table header -->

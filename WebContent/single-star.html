@@ -16,26 +16,36 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="index.css">
 
     <title>Single Star</title>
 </head>
 <body>
-<h1>Single Star Page</h1>
-<a href="top20.html">Back to movie list page</a>
+<div id="header">
+    <a href="index.html">Home</a>
+    <a href="top20.html">Top 20</a>
+    <a href="#">Checkout</a>
+
+    <form id = "search-form" action="#" method="GET">
+        <input type="text" id="search-title" name="title" placeholder="Movie Title">
+        <input type="text" id="search-year" name="year" placeholder="Release Year">
+        <input type="text" id="search-director" name="director" placeholder="Director">
+        <input type="text" id="search-star" name="star" placeholder="Star's Name">
+        <button id="search-button" type="submit" value="Search">Search</button>
+    </form>
+</div>
 <!-- H3 body is left empty here, will be populated with the data retrieved with single-star.js -->
 <!-- single-star.js will find this html element by it's id "star_info" -->
-<h3 id="star_info"></h3>
+<h1 id="star_name"></h1>
+<h4 id="star_dob"></h4>
 <table id=movie_table class="table table-striped">
     <thead>
     <tr>
         <th>Movie Title</th>
         <th>Release Year</th>
-        <th>Director</th>
+        <th>Cart</th>
     </tr>
     </thead>
-
-    <!-- Table body is left empty here, will be populated with the data retrieved with single-star.js -->
-    <!-- single-star.js will find this html element by it's id "movie_table_body" -->
     <tbody id=movie_table_body></tbody>
 </table>
 
