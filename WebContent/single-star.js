@@ -1,20 +1,24 @@
-/**
- * This example is following frontend and backend separation.
- *
- * Before this .js is loaded, the html skeleton is created.
- *
- * This .js performs three steps:
- *      1. Get parameter from request URL so it know which id to look for
- *      2. Use jQuery to talk to backend API to get the json data.
- *      3. Populate the data to correct html elements.
- */
+$(document).ready(function (){
+    let searchForm = $("#search-form"); // Use jQuery selector to select the form
+    searchForm.on("submit", function(event) {
+        event.preventDefault();
+        var title = $("#search-title").val(); // Use jQuery to get input values
+        var year = $("#search-year").val();
+        var director = $("#search-director").val();
+        var star = $("#search-star").val();
 
+        // Construct the URL
+        var url = "list.html?title=" + encodeURIComponent(title) +
+            "&year=" + encodeURIComponent(year) +
+            "&director=" + encodeURIComponent(director) +
+            "&star=" + encodeURIComponent(star);
 
-/**
- * Retrieve parameter from request URL, matching by parameter name
- * @param target String
- * @returns {*}
- */
+        // Redirect the user to the new URL
+        console.log(url)
+        window.location.href = url;
+    })
+})
+
 function getParameterByName(target) {
     // Get request URL
     let url = window.location.href;
