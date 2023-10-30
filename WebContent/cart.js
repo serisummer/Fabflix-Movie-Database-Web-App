@@ -13,6 +13,11 @@ function handleSessionData(resultDataString) {
     $("#sessionID").text("Session ID: " + resultDataJson["sessionID"]);
     $("#lastAccessTime").text("Last access time: " + resultDataJson["lastAccessTime"]);
     $('#totalCartPrice').text("Total Cart Price: $" + resultDataJson["totalCartPrice"]);
+    if (!(resultDataJson["totalCartPrice"] === "0.00")) {
+        let paymentElement = $('#payment');
+        paymentElement.text("Proceed to Payment");
+        paymentElement.attr("href", "payment.html");
+    }
 
     // show cart information
     handleCartArray(resultDataJson["previousItems"]);

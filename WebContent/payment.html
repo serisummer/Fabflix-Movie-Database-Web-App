@@ -14,36 +14,41 @@
 </head>
 <body>
 
-<h1>Shopping Cart</h1>
+<h1>Payment</h1>
 <a href="index.html">Home</a>
 <p id="totalCartPrice"></p>
-<a id="payment"></a>
-<table id=items_table class="table table-striped">
-    <!-- Create a table header -->
-    <thead>
-    <tr>
-        <!-- Titles of each column-->
-        <th>Title</th>
-        <th>Unit Price</th>
-        <th>Subtotal</th>
-        <th>Quantity</th>
-        <th>Change Quantity</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-    <!-- Table body is left empty here, will be populated with the data retrieved with index.js -->
-    <!-- Again, id "movies_table_body" is useful for jQuery to find this html element -->
-    <tbody id=items_table_body></tbody>
-</table>
+<p id="payment_error_message"></p>
+<form id="payment_form" method="post" action="#">
+    <label><b>First Name</b></label>
+    <label>
+        <input name="firstname" placeholder="Enter First Name" type="text">
+    </label>
+    <br>
+    <label><b>Last Name</b></label>
+    <label>
+        <input name="lastname" placeholder="Enter Last Name" type="text">
+    </label>
+    <br>
+    <label><b>Credit Card Number</b></label>
+    <label>
+        <input name="ccnumber" placeholder="Enter Credit Card Number" type="text">
+    </label>
+    <br>
+    <label><b>Expiration Date</b></label>
+    <label>
+        <input name="expdate" placeholder="Enter Expiration Date" type="text">
+    </label>
+    <br>
+    <input type="submit" value="Place Order">
+</form>
 
 <!-- Load jQuery and Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+<script src="payment.js"></script>
 <script src="cart.js"></script>
-<script src="submitCart.js"></script>
 </body>
-
 
 </html>

@@ -101,12 +101,20 @@ public class CartServlet extends HttpServlet {
 
         if (actionType.equals("remove")) {
             synchronized (previousItems) {
+                Item item = null;
                 for (Item i : previousItems) {
                     if (i.getId().equals(itemId)) {
-                        i.change(-1);
-                        break;
+                        if (i.getQuantity() == 1) {
+                            item = i;
+                            break;
+                        }
+                        else {
+                            i.change(-1);
+                            break;
+                        }
                     }
                 }
+                previousItems.remove(item);
             }
         }
 

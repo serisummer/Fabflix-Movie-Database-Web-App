@@ -37,6 +37,7 @@ function handleCartSubmitShoppingCart(cartEvent) {
         method: "POST",
         data: $(this).serialize(),
         success: () => {
+            window.alert("Success");
             window.location.reload();
         }
     });

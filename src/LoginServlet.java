@@ -43,13 +43,13 @@ public class LoginServlet extends HttpServlet {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                String resUsername = rs.getString("email");
                 String resPassword = rs.getString("password");
+                String id = rs.getString("id");
                 if (password.equals(resPassword)) {
                     HttpSession session = request.getSession(true);
 
                     if (session.getAttribute("user") == null) {
-                        session.setAttribute("user", new User(username));
+                        session.setAttribute("user", new User(username, id));
                     }
                     // Retrieve data named "accessCount" from session, which count how many times the user requested before
                     Integer accessCount = (Integer) session.getAttribute("accessCount");
