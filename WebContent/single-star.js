@@ -67,12 +67,22 @@ function handleResult(resultData) {
             + resultData[i]["title"] + '</a>';
         rowHTML += "</th>";
         rowHTML += "<th>" + resultData[i]["year"] + "</th>";
-        rowHTML += "<th>Add To Cart</th>";
+
+        rowHTML += "<th>";
+        rowHTML += "<form class='cart' method='post'>" +
+            "<input type='hidden' name='itemId' value='" + resultData[i]["id"] + "'>" +
+            "<input type='hidden' name='itemTitle' value='" + resultData[i]["title"] + "'>" +
+            "<input type='hidden' name='actionType' value='add'>" +
+            "<input type='submit' value='Add'>" +
+            "</form>";
+        rowHTML += "</th>";
+
         rowHTML += "</tr>";
 
         // Append the row created to the table body, which will refresh the page
         movieTableBodyElement.append(rowHTML);
     }
+    $('.cart').submit(handleCartSubmit);
 }
 
 /**
