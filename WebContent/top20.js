@@ -13,6 +13,28 @@
  * Handles the data returned by the API, read the jsonObject and populate data into html elements
  * @param resultData jsonObject
  */
+
+$(document).ready(function (){
+    let searchForm = $("#search-form"); // Use jQuery selector to select the form
+    searchForm.on("submit", function(event) {
+        event.preventDefault();
+        var title = $("#search-title").val(); // Use jQuery to get input values
+        var year = $("#search-year").val();
+        var director = $("#search-director").val();
+        var star = $("#search-star").val();
+
+        // Construct the URL
+        var url = "list.html?title=" + encodeURIComponent(title) +
+            "&year=" + encodeURIComponent(year) +
+            "&director=" + encodeURIComponent(director) +
+            "&star=" + encodeURIComponent(star);
+
+        // Redirect the user to the new URL
+        console.log(url)
+        window.location.href = url;
+    })
+})
+
 function handleMoviesResult(resultData) {
     console.log("handleMoviesResult: populating movies table from resultData");
 

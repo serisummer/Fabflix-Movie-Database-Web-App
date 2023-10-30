@@ -192,6 +192,7 @@ function handleMovieList(resultData) {
     console.log("handleMovieList (list.js) called");
     // Populate the table with movie data
     let moviesTableBodyElement = $("#movies_table_body");
+    moviesTableBodyElement.empty()
 
     for (let i = 0; i < resultData.length; i++) {
         let movie = resultData[i];
