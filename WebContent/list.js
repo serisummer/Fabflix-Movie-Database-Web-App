@@ -1,5 +1,17 @@
 $(document).ready(function (){
-
+    $.ajax({
+        url: 'api/session', // Replace with the actual URL of your SessionServlet
+        dataType: 'json',
+        success: function (data) {
+            const lastListURL = data.lastListURL;
+            console.log(data)
+            // Update the href attribute of the movie list button
+            $('#movie-list').attr('href', lastListURL);
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching last accessed URL:', error);
+        }
+    })
     const searchParams = new URLSearchParams(window.location.search);
     let sort  = 1;
     if(searchParams.has("sort")){

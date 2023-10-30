@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Arrays;
+import jakarta.servlet.http.HttpSession;
 
 
 // Declaring a WebServlet called MoviesServlet, which maps to url "/api/movies"
@@ -39,6 +40,10 @@ public class MovieListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         //response.setContentType("application/json"); // Response mime type
+        // In your list servlet (list.java), after you've parsed the current URL and done any other processing:
+        HttpSession session = request.getSession();
+        String currentURL = "list.html" + "?" + request.getQueryString();
+        session.setAttribute("lastListURL", currentURL);
 
         // Output stream to STDOUT
         PrintWriter out = response.getWriter();

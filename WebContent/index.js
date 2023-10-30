@@ -51,4 +51,19 @@ $(document).ready(function () {
         success: (resultData) => handleGenres(resultData) // Setting callback function to handle data returned successfully by the MoviesServlet
     });
 
+    $.ajax({
+        url: 'api/session', // Replace with the actual URL of your SessionServlet
+        dataType: 'json',
+        success: function (data) {
+            const lastListURL = data.lastListURL;
+            console.log(data)
+            // Update the href attribute of the movie list button
+            $('#movie-list').attr('href', lastListURL);
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching last accessed URL:', error);
+        }
+    })
+
+
 });
