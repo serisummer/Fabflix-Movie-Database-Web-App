@@ -53,7 +53,7 @@ public class SingleStarServlet extends HttpServlet {
             // Get a connection from dataSource
 
             // Construct a query with parameter represented by "?"
-            String query = "SELECT name, birthYear, movieId, title, year " +
+            String query = "SELECT name, birthYear, movieId, title, year, m.id as id " +
             "from stars as s, stars_in_movies as sim, movies as m " +
             "where m.id = sim.movieId and sim.starId = s.id and s.id = ? " +
             "order by year desc, title asc ";
@@ -76,6 +76,7 @@ public class SingleStarServlet extends HttpServlet {
                 // Create a JsonObject based on the data we retrieve from rs
 
                 JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("id", rs.getString("id"));
                 jsonObject.addProperty("name", rs.getString("name"));
                 jsonObject.addProperty("birthYear", rs.getString("birthYear"));
                 jsonObject.addProperty("movie_id", rs.getString("movieId"));
