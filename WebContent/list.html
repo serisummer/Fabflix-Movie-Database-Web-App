@@ -15,8 +15,6 @@
 <!-- The path is relative to top20.html, since these two files are in the same directory -->
 <!-- Note the url does not contain a "/" in the beginning, which means the url is relative to current path
      otherwise the url is relative to the root path-->
-<script src="list.js"></script>
-
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -37,7 +35,7 @@
         <a href="index.html">Home</a>
         <a href="top20.html">Top 20</a>
         <a href="#">Movie List Page</a>
-        <a href="#">Checkout</a>
+        <a href="cart.html">Checkout</a>
 
         <form id = "search-form" method="GET">
             <input type="text" id="search-title" name="title" placeholder="Movie Title">
@@ -103,5 +101,7 @@
         <!-- Again, id "movies_table_body" is useful for jQuery to find this html element -->
         <tbody id="movies_table_body"></tbody>
     </table>
+    <script src="list.js"></script>
+    <script src="submitCart.js"></script>
 </body>
 </html>

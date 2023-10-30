@@ -96,48 +96,48 @@ public class MoviesServlet extends HttpServlet {
                     first++;
                 }
 
-                    if (id.equals(prev)) {
-                        String genre = rs.getString("g.name") + ", ";
-                        if (!genres.contains(genre) && genreCount < 3) {
-                            genreCount++;
-                            genres += genre;
-                        }
-                        String star = rs.getString("s.name") + ", ";
-                        if (!stars.contains(star) && starCount < 3) {
-                            starCount++;
-                            stars += star;
-                        }
-                        String starId = rs.getString("starId") + ", ";
-                        if (!starIds.contains(starId) && starIdCount < 3) {
-                            starIdCount++;
-                            starIds += starId;
-                        }
-                        prev = id;
+                if (id.equals(prev)) {
+                    String genre = rs.getString("g.name") + ", ";
+                    if (!genres.contains(genre) && genreCount < 3) {
+                        genreCount++;
+                        genres += genre;
                     }
-                    else {
-                        genreCount = 1;
-                        starCount = 1;
-                        starIdCount = 1;
-                        jsonObject.addProperty("genres", genres.substring(0, genres.length()-2));
-                        jsonObject.addProperty("stars", stars.substring(0, stars.length()-2));
-                        jsonObject.addProperty("starIds", starIds.substring(0, starIds.length()-2));
-                        jsonArray.add(jsonObject);
+                    String star = rs.getString("s.name") + ", ";
+                    if (!stars.contains(star) && starCount < 3) {
+                        starCount++;
+                        stars += star;
+                    }
+                    String starId = rs.getString("starId") + ", ";
+                    if (!starIds.contains(starId) && starIdCount < 3) {
+                        starIdCount++;
+                        starIds += starId;
+                    }
+                    prev = id;
+                }
+                else {
+                    genreCount = 1;
+                    starCount = 1;
+                    starIdCount = 1;
+                    jsonObject.addProperty("genres", genres.substring(0, genres.length()-2));
+                    jsonObject.addProperty("stars", stars.substring(0, stars.length()-2));
+                    jsonObject.addProperty("starIds", starIds.substring(0, starIds.length()-2));
+                    jsonArray.add(jsonObject);
 
-                        jsonObject = new JsonObject();
-                        title = rs.getString("title");
-                        year = rs.getString("year");
-                        director = rs.getString("director");
-                        rating = rs.getString("rating");
-                        genres = rs.getString("g.name") + ", ";
-                        stars = rs.getString("s.name") + ", ";
-                        starIds = rs.getString("starId") + ", ";
-                        jsonObject.addProperty("id", id);
-                        jsonObject.addProperty("title", title);
-                        jsonObject.addProperty("year", year);
-                        jsonObject.addProperty("director", director);
-                        jsonObject.addProperty("rating", rating);
-                        prev = id;
-                    }
+                    jsonObject = new JsonObject();
+                    title = rs.getString("title");
+                    year = rs.getString("year");
+                    director = rs.getString("director");
+                    rating = rs.getString("rating");
+                    genres = rs.getString("g.name") + ", ";
+                    stars = rs.getString("s.name") + ", ";
+                    starIds = rs.getString("starId") + ", ";
+                    jsonObject.addProperty("id", id);
+                    jsonObject.addProperty("title", title);
+                    jsonObject.addProperty("year", year);
+                    jsonObject.addProperty("director", director);
+                    jsonObject.addProperty("rating", rating);
+                    prev = id;
+                }
             }
             jsonObject.addProperty("genres", genres.substring(0, genres.length()-2));
             jsonObject.addProperty("stars", stars.substring(0, stars.length()-2));

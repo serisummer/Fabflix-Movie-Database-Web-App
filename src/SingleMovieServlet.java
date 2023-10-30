@@ -89,6 +89,7 @@ public class SingleMovieServlet extends HttpServlet {
             JsonObject jsonObject = new JsonObject();
             while (rs.next()) {
                 JsonObject movieJson = new JsonObject();
+                movieJson.addProperty("id", id);
                 movieJson.addProperty("title", rs.getString("title"));
                 movieJson.addProperty("year", rs.getInt("year"));
                 movieJson.addProperty("director", rs.getString("director"));

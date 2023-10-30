@@ -57,10 +57,21 @@ function handleResult(resultData) {
     rowHTML += ("<th>" + parseGenres(movie.genres) +"</th>")
     rowHTML += ("<th>" + parseStars(movie.stars) +"</th>")
     rowHTML += ("<th>" + movie.rating +"</th>")
-    rowHTML += ('<th>Add To Cart</th>')
+
+    rowHTML += "<th>";
+    rowHTML += "<form class='cart' method='post'>" +
+        "<input type='hidden' name='itemId' value='" + movie.id + "'>" +
+        "<input type='hidden' name='itemTitle' value='" + movie.title + "'>" +
+        "<input type='hidden' name='actionType' value='add'>" +
+        "<input type='submit' value='Add'>" +
+        "</form>";
+    rowHTML += "</th>";
+
     rowHTML += ("</tr>")
     moviesTableBodyElement.append(rowHTML);
+    $('.cart').submit(handleCartSubmit);
 }
+
 
 /**
  * Once this .js is loaded, following scripts will be executed by the browser\

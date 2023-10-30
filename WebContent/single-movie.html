@@ -16,7 +16,6 @@
 <!-- The path is relative to single-movie.html, since these two files are in the same directory -->
 <!-- Note the url does not contain a "/" in the beginning, which means the url is relative to current path
      otherwise the url is relative to the root path-->
-<script src="single-movie.js"></script>
 
 <html lang="en">
 <head>
@@ -32,12 +31,12 @@
 
     <title>Single movie</title>
 </head>
-    <body>
+<body>
     <div id="header">
         <a href="index.html">Home</a>
         <a href="top20.html">Top 20</a>
         <a href="#">Movie List Page</a>
-        <a href="#">Checkout</a>
+        <a href="cart.html">Checkout</a>
 
         <form id = "search-form" method="GET">
             <input type="text" id="search-title" name="title" placeholder="Movie Title">
@@ -62,8 +61,8 @@
         </thead>
         <tbody id="movie_table_body"></tbody>
     </table>
-
+    <script src="single-movie.js"></script>
+    <script src="submitCart.js"></script>
 </body>
-
 
 </html>

@@ -14,26 +14,25 @@
 </head>
 <body>
 
-<h1>Shopping Cart</h1>
+<h1>Order Confirmation</h1>
 <a href="index.html">Home</a>
-<p id="totalCartPrice"></p>
-<a id="payment"></a>
-<table id=items_table class="table table-striped">
+<h2>Thank You For Using Our Service! Enjoy Your Movies!</h2>
+<p id="totalSalesPrice"></p>
+<table id=records_table class="table table-striped">
     <!-- Create a table header -->
     <thead>
     <tr>
         <!-- Titles of each column-->
+        <th>Sale Id</th>
         <th>Title</th>
+        <th>Quantity</th>
         <th>Unit Price</th>
         <th>Subtotal</th>
-        <th>Quantity</th>
-        <th>Change Quantity</th>
-        <th>Delete</th>
     </tr>
     </thead>
     <!-- Table body is left empty here, will be populated with the data retrieved with index.js -->
     <!-- Again, id "movies_table_body" is useful for jQuery to find this html element -->
-    <tbody id=items_table_body></tbody>
+    <tbody id=records_table_body></tbody>
 </table>
 
 <!-- Load jQuery and Bootstrap JS -->
@@ -41,9 +40,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-<script src="cart.js"></script>
-<script src="submitCart.js"></script>
+<script src="confirmation.js"></script>
 </body>
-
 
 </html>

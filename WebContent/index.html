@@ -11,43 +11,44 @@
      otherwise the url is relative to the root path-->
 <script src="index.js"></script>
 <html lang="en">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport"
-              content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="index.css">
-        <title>Main-Page</title>
-    </head>
-    <body>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <title>Main-Page</title>
+</head>
+<body>
 
-        <div id="header">
-            <a href="index.html">Home</a>
-            <a href="top20.html">Top 20</a>
-            <a href="#">Checkout</a>
+<div id="header">
+    <a href="index.html">Home</a>
+    <a href="top20.html">Top 20</a>
+    <a href="cart.html">Checkout</a>
 
-            <form id = "search-form" action="#" method="GET">
-                <input type="text" id="search-title" name="title" placeholder="Movie Title">
-                <input type="text" id="search-year" name="year" placeholder="Release Year">
-                <input type="text" id="search-director" name="director" placeholder="Director">
-                <input type="text" id="search-star" name="star" placeholder="Star's Name">
-                <button id="search-button" type="submit" value="Search">Search</button>
-            </form>
-        </div>
+    <form id = "search-form" action="#" method="GET">
+        <input type="text" id="search-title" name="title" placeholder="Movie Title">
+        <input type="text" id="search-year" name="year" placeholder="Release Year">
+        <input type="text" id="search-director" name="director" placeholder="Director">
+        <input type="text" id="search-star" name="star" placeholder="Star's Name">
+        <button id="search-button" type="submit" value="Search">Search</button>
+    </form>
+</div>
+<h1>Main Page</h1>
 
-        <div class="main-page-container" id = "genre-list-container">
-            <h1>Browse by Genre</h1>
-            <ul id="browse-by-genre-list"></ul>
-        </div>
+<div class="main-page-container" id = "genre-list-container">
+    <h1>Browse by Genre</h1>
+    <ul id="browse-by-genre-list"></ul>
+</div>
 
-        <div class="main-page-container" id="title-list-container">
-            <h1>Browse by Movie Title</h1>
-            <ul id="browse-by-title-list"></ul>
-        </div>
+<div class="main-page-container" id="title-list-container">
+    <h1>Browse by Movie Title</h1>
+    <ul id="browse-by-title-list"></ul>
+</div>
 
-    </body>
+</body>
 </html>

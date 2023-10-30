@@ -192,6 +192,7 @@ function handleMovieList(resultData) {
     console.log("handleMovieList (list.js) called");
     // Populate the table with movie data
     let moviesTableBodyElement = $("#movies_table_body");
+    moviesTableBodyElement.empty()
 
     for (let i = 0; i < resultData.length; i++) {
         let movie = resultData[i];
@@ -202,10 +203,18 @@ function handleMovieList(resultData) {
         rowHTML += ("<th>" + parseGenres(movie.genres) +"</th>")
         rowHTML += ("<th>" + parseStars(movie.stars) +"</th>")
         rowHTML += ("<th>" + movie.rating +"</th>")
-        rowHTML += ('<th>Add To Cart</th>')
+        rowHTML += "<th>";
+        rowHTML += "<form class='cart' method='post'>" +
+            "<input type='hidden' name='itemId' value='" + movie.id + "'>" +
+            "<input type='hidden' name='itemTitle' value='" + movie.title + "'>" +
+            "<input type='hidden' name='actionType' value='add'>" +
+            "<input type='submit' value='Add'>" +
+            "</form>";
+        rowHTML += "</th>";
         rowHTML += ("</tr>")
         moviesTableBodyElement.append(rowHTML);
     }
+    $('.cart').submit(handleCartSubmit);
 }
 
 function parseStars(stars){

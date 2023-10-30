@@ -13,6 +13,28 @@
  * Handles the data returned by the API, read the jsonObject and populate data into html elements
  * @param resultData jsonObject
  */
+
+$(document).ready(function (){
+    let searchForm = $("#search-form"); // Use jQuery selector to select the form
+    searchForm.on("submit", function(event) {
+        event.preventDefault();
+        var title = $("#search-title").val(); // Use jQuery to get input values
+        var year = $("#search-year").val();
+        var director = $("#search-director").val();
+        var star = $("#search-star").val();
+
+        // Construct the URL
+        var url = "list.html?title=" + encodeURIComponent(title) +
+            "&year=" + encodeURIComponent(year) +
+            "&director=" + encodeURIComponent(director) +
+            "&star=" + encodeURIComponent(star);
+
+        // Redirect the user to the new URL
+        console.log(url)
+        window.location.href = url;
+    })
+})
+
 function handleMoviesResult(resultData) {
     console.log("handleMoviesResult: populating movies table from resultData");
 
@@ -36,7 +58,7 @@ function handleMoviesResult(resultData) {
         rowHTML += "<th>" + resultData[i]["year"] + "</th>";
         rowHTML += "<th>" + resultData[i]["director"] + "</th>";
         rowHTML += "<th>" + resultData[i]["genres"] + "</th>";
-        console.log(resultData[i]["starIds"]);
+
         const starStrings = resultData[i]["stars"].split(", ");
         const starIdStrings = resultData[i]["starIds"].split(", ");
         rowHTML += "<th>";
@@ -48,15 +70,26 @@ function handleMoviesResult(resultData) {
                 rowHTML += ", ";
             }
         }
-        rowHTML += "<th>" + resultData[i]["rating"] + "</th>";
         rowHTML += "</th>";
+
+        rowHTML += "<th>" + resultData[i]["rating"] + "</th>";
+
+        rowHTML += "<th>";
+        rowHTML += "<form class='cart' method='post'>" +
+                        "<input type='hidden' name='itemId' value='" + resultData[i]["id"] + "'>" +
+                        "<input type='hidden' name='itemTitle' value='" + resultData[i]["title"] + "'>" +
+                        "<input type='hidden' name='actionType' value='add'>" +
+                        "<input type='submit' value='Add'>" +
+                    "</form>";
+        rowHTML += "</th>";
+
         rowHTML += "</tr>";
 
         // Append the row created to the table body, which will refresh the page
         moviesTableBodyElement.append(rowHTML);
     }
+    $('.cart').submit(handleCartSubmit);
 }
-
 
 /**
  * Once this .js is loaded, following scripts will be executed by the browser
