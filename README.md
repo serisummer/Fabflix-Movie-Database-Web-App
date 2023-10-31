@@ -8,11 +8,11 @@ Contributions:
 
 Project 2
 
-Demo Video: 
+Demo Video: https://youtu.be/gAUZ40QdwNY
 
 Contributions:
 - Weiguang Wu: login, shopping cart, payment, comfirmation
-- Saul Hernandez: sorting, browsing, sorting, pagination
+- Saul Hernandez: searching, browsing, sorting, pagination
 
 Substring Matching Design:
 
