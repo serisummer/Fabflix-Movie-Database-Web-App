@@ -31,10 +31,23 @@ public class LoginServlet extends HttpServlet {
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
+        JsonObject responseJsonObject = new JsonObject();
+
+        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+        // Verify reCAPTCHA
+        try {
+            RecaptchaVerifyUtils.verify(gRecaptchaResponse);
+        } catch (Exception e) {
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("message", e.getMessage());
+            out.write(jsonObject.toString());
+            out.close();
+            return;
+        }
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         request.getServletContext().log("login attempt by: " + username + " using password: " + password);
-        JsonObject responseJsonObject = new JsonObject();
 
         try (Connection conn = dataSource.getConnection()) {
             String query = "select * from customers where email like ?";
@@ -88,7 +101,7 @@ public class LoginServlet extends HttpServlet {
         } catch (Exception e) {
             // Write error message JSON object to output
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("errorMessage", e.getMessage());
+            jsonObject.addProperty("message", e.getMessage());
             out.write(jsonObject.toString());
 
             // Set response status to 500 (Internal Server Error)
