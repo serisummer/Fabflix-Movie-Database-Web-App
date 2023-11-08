@@ -46,12 +46,13 @@ public class GenreServlet extends HttpServlet {
         // Get a connection from dataSource and let resource manager close the connection after usage.
         try (Connection conn = dataSource.getConnection()) {
 
-            // Declare our statement
-            Statement statement = conn.createStatement();
 
             String query = "SELECT DISTINCT name " +
                     "FROM genres " +
                     "ORDER by name";
+
+            // Declare our statement
+            Statement statement = conn.createStatement();
 
             // Perform the query
             ResultSet rs = statement.executeQuery(query);

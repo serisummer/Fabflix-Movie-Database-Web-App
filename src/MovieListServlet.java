@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Arrays;
@@ -63,7 +64,6 @@ public class MovieListServlet extends HttpServlet {
             int currentPage = Integer.parseInt(request.getParameter("page"));
             int offset = (currentPage - 1) * moviesPerPage;
 
-            Statement statement = conn.createStatement();
 
             String query = "SELECT m.title, m.id, m.year, m.director, " +
                     "GROUP_CONCAT(DISTINCT g.name ORDER BY g.name ASC) AS genres, " +
@@ -81,26 +81,59 @@ public class MovieListServlet extends HttpServlet {
                     ") AS star_freq ON s.id = star_freq.starId " +
                     "WHERE 1=1";
 
+            boolean p_title = false;
+            boolean p_year = false;
+            boolean p_dir = false;
+            boolean p_star = false;
 
             if (title != null && !title.isEmpty()) {
-                query += " AND title LIKE '%" + title + "%'";
+                query += " AND title LIKE ?";
+                p_title = true;
             }
             if (year != null && !year.isEmpty()) {
-                query += " AND year = " + year;
+                query += " AND year = ?";
+                p_year = true;
             }
             if (director != null && !director.isEmpty()) {
-                query += " AND director LIKE '%" + director + "%'";
+                query += " AND director LIKE ?";
+                p_dir = true;
             }
             if (star != null && !star.isEmpty()) {
-                query += " AND m.id IN (SELECT si.movieId FROM stars_in_movies si WHERE si.starId IN (SELECT st.id FROM stars st WHERE st.name LIKE '%" + star + "%'))";
+                query += " AND m.id IN (SELECT si.movieId FROM stars_in_movies si WHERE si.starId IN (SELECT st.id FROM stars st WHERE st.name LIKE ?))";
+                p_star = true;
             }
 
             query += " GROUP BY m.title, m.id, m.year, m.director, r.rating ";
             query += parseSort(sort);
-            query += " LIMIT " + moviesPerPage + " OFFSET " + offset;
+            query += " LIMIT ? OFFSET ?";
+            //+ moviesPerPage + " OFFSET " + offset;
+
+            // Declare our statement
+            PreparedStatement statement = conn.prepareStatement(query);
+            int preparedIndex = 1;
+            if(p_title){
+                statement.setString(preparedIndex, "%"+title+"%");
+                preparedIndex++;
+            }
+            if(p_year){
+                statement.setInt(preparedIndex, Integer.parseInt(year));
+                preparedIndex++;
+            }
+            if(p_dir){
+                statement.setString(preparedIndex, "%"+director+"%");
+                preparedIndex++;
+            }
+            if(p_star){
+                statement.setString(preparedIndex, "%"+star+"%");
+                preparedIndex++;
+            }
+
+            statement.setInt(preparedIndex, moviesPerPage);
+            preparedIndex+=1;
+            statement.setInt(preparedIndex, offset);
 
             // Perform the query
-            ResultSet rs = statement.executeQuery(query);
+            ResultSet rs = statement.executeQuery();
 
             JsonArray jsonArray = new JsonArray();
             // Iterate through each row of rs
