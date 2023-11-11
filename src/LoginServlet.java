@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -12,8 +13,8 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/api/login")
 public class LoginServlet extends HttpServlet {
@@ -58,7 +59,8 @@ public class LoginServlet extends HttpServlet {
             if (rs.next()) {
                 String resPassword = rs.getString("password");
                 String id = rs.getString("id");
-                if (password.equals(resPassword)) {
+
+                if (new StrongPasswordEncryptor().checkPassword(password,resPassword)) {
                     HttpSession session = request.getSession(true);
 
                     if (session.getAttribute("user") == null) {
