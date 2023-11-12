@@ -14,7 +14,7 @@ function handleLoginResult(resultDataString) {
 
     // If login succeeds, it will redirect the user to top20.html
     if (resultDataJson["status"] === "success") {
-        window.location.replace("index.html");
+        window.location.replace("dashboard.html");
     } else {
         // If login fails, the web page will display
         // error messages on <div> with id "login_error_message"
@@ -38,7 +38,7 @@ function submitLoginForm(formSubmitEvent) {
     formSubmitEvent.preventDefault();
 
     $.ajax(
-        "api/login", {
+        "/cs122b_project3_war/api/_dashboard", {
             method: "POST",
             // Serialize the login form to the data sent by POST request
             data: login_form.serialize(),
