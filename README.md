@@ -6,7 +6,7 @@ Contributions:
 - Weiguang Wu: project setup, implemented movie list page and jump functionality, recorded demo
 - Saul Hernandez: project setup, implemented single star page, single movie page, and jump functionality between them
 
-Project 2
+Project 2:
 
 Demo Video: https://youtu.be/gAUZ40QdwNY
 
@@ -38,3 +38,20 @@ MoviesByTitleServlet.java
 - used to find all movies that start with given character
 (assuming its not the * character)
 - where m.title like ?%
+
+Project 3:
+
+Demo Video:
+
+Contributions:
+- Weiguang Wu: reCaptcha, xmlDomParser
+- Saul Hernandez: https, preparedStatements, encrypted password, dashboard
+
+Inconsistencies:
+- 5276 stars are inserted
+- 95 genres are inserted
+- 7419 movies are inserted
+- 8385 genres_in_movies are inserted
+- 29307 stars_in_movies are inserted
+- 4696 movies are inconsistent (no genre or no star)
+- 1563 stars are inconsistent (not in both casts and actors)
