@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- include jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- include our own JS file -->
+    <script src="movie.js"></script>
+
+    <title>New Movie</title>
+</head>
+<body>
+<h1>New Movie</h1>
+<p id="login_error_message"></p>
+<form id="movie_form" method="post" action="#">
+    <label><b>Movie Title</b></label>
+    <label>
+        <input name="title" placeholder="Movie Title" type="text">
+    </label>
+    <br>
+    <label><b>Year</b></label>
+    <label>
+        <input name="year" placeholder="Year" type="text">
+    </label>
+    <label><b>Director</b></label>
+    <label>
+        <input name="director" placeholder="Director" type="text">
+    </label>
+    <br>
+    <label><b>Star Name</b></label>
+    <label>
+        <input name="name" placeholder="Star Name" type="text">
+    </label>
+    <label><b>Birth Year</b></label>
+    <label>
+        <input name="birth_year" placeholder="Birth Year" type="text">
+    </label>
+    <br>
+    <label><b>Genre</b></label>
+    <label>
+        <input name="genre" placeholder="Genre Name" type="text">
+    </label>
+    <br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>
