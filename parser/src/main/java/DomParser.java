@@ -238,11 +238,11 @@ public class DomParser {
     }
 
     public static void main(String[] args) throws SQLException {
-        DomParser domParserMains = new DomParser("stanford-movies/mains243.xml");
+        DomParser domParserMains = new DomParser("../stanford-movies/mains243.xml");
         domParserMains.parseMains();
-        DomParser domParserCasts = new DomParser("stanford-movies/casts124.xml");
+        DomParser domParserCasts = new DomParser("../stanford-movies/casts124.xml");
         domParserCasts.parseCasts();
-        DomParser domParserActors = new DomParser("stanford-movies/actors63.xml");
+        DomParser domParserActors = new DomParser("../stanford-movies/actors63.xml");
         domParserActors.parseActors();
 
         //Report
