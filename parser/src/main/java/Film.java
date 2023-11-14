@@ -1,5 +1,3 @@
-package main.java;
-
 import java.util.List;
 
 public class Film {
@@ -25,7 +23,7 @@ public class Film {
         return this.title;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return this.year;
     }
 
