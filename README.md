@@ -41,7 +41,7 @@ MoviesByTitleServlet.java
 
 Project 3:
 
-Demo Video:
+Demo Video: https://www.youtube.com/watch?v=HtJHjQkU5wQ
 
 Contributions:
 - Weiguang Wu: reCaptcha, xmlDomParser
