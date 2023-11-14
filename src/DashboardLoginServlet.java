@@ -17,7 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 //
-@WebServlet(name = "DashboardLoginServlet", urlPatterns = "/api/_dashboard")
+@WebServlet(name = "DashboardLoginServlet", urlPatterns = "/_dashboard/api/_dashboard")
 public class DashboardLoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
