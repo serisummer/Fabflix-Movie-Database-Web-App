@@ -1,3 +1,4 @@
+use moviedb;
 drop procedure if exists add_movie;
 -- Change DELIMITER to $$ 
 DELIMITER $$ 
