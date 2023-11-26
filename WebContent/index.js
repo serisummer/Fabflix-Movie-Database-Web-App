@@ -180,7 +180,8 @@ function handleSelectSuggestion(suggestion) {
  */
 function handleNormalSearch(query) {
     console.log("doing normal search with query: " + query);
-    // TODO: you should do normal search here
+    window.location.href = "list.html?title=" +encodeURIComponent(query) +
+        "&year=&director=&star=";
 }
 
 

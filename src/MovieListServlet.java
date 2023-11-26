@@ -82,7 +82,7 @@ public class MovieListServlet extends HttpServlet {
             boolean p_star = false;
 
             if (title != null && !title.isEmpty()) {
-                query += " AND title LIKE ?";
+                query += " AND match(title) against (? IN BOOLEAN MODE)";
                 p_title = true;
             }
             if (year != null && !year.isEmpty()) {
@@ -107,7 +107,12 @@ public class MovieListServlet extends HttpServlet {
             PreparedStatement statement = conn.prepareStatement(query);
             int preparedIndex = 1;
             if(p_title){
-                statement.setString(preparedIndex, "%"+title+"%");
+                String filter = "";
+                String [] words = title.split(" ");
+                for(String word: words ){
+                    filter += '+' + word + "* ";
+                }
+                statement.setString(preparedIndex, filter);
                 preparedIndex++;
             }
             if(p_year){
@@ -155,13 +160,15 @@ public class MovieListServlet extends HttpServlet {
             }
 
             rs.close();
-            statement.close();
+
 
             // Log to localhost log
             request.getServletContext().log("getting " + jsonArray.size() + " results");
 
             // Write JSON string to output
             out.write(jsonArray.toString());
+            //
+            statement.close();
             // Set response status to 200 (OK)
             response.setStatus(200);
 
