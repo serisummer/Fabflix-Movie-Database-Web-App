@@ -70,6 +70,8 @@ public class LoginServletMobile extends HttpServlet {
                     // Log to localhost log
                     request.getServletContext().log("Login failed");
                     responseJsonObject.addProperty("message", "incorrect password");
+                    responseJsonObject.addProperty("enter password", password);
+                    responseJsonObject.addProperty("correct password", resPassword);
                 }
             }
             else {
