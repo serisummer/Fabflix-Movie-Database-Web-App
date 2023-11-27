@@ -55,3 +55,11 @@ Inconsistencies:
 - 29307 stars_in_movies are inserted
 - 4696 movies are inconsistent (no genre or no star)
 - 1563 stars are inconsistent (not in both casts and actors)
+
+Project 4:
+
+Demo Video: https://youtu.be/smDRbiCmumo
+
+Contributions:
+- Weiguang Wu: Android App for Fabflix
+- Saul Hernandez: Full-text Search and Auto-complete
