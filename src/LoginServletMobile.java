@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -45,7 +46,8 @@ public class LoginServletMobile extends HttpServlet {
             if (rs.next()) {
                 String resPassword = rs.getString("password");
                 String id = rs.getString("id");
-                if (password.equals(resPassword)) {
+
+                if (new StrongPasswordEncryptor().checkPassword(password,resPassword)) {
                     HttpSession session = request.getSession(true);
 
                     if (session.getAttribute("user") == null) {
@@ -70,8 +72,6 @@ public class LoginServletMobile extends HttpServlet {
                     // Log to localhost log
                     request.getServletContext().log("Login failed");
                     responseJsonObject.addProperty("message", "incorrect password");
-                    responseJsonObject.addProperty("enter password", password);
-                    responseJsonObject.addProperty("correct password", resPassword);
                 }
             }
             else {
