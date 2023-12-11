@@ -78,31 +78,36 @@ Contributions:
 
 - # Connection Pooling
  - #### Include the filename/path of all code/configuration files in GitHub of using JDBC Connection Pooling.
-   - SingleStarServlet.java
-   - AutocompleteServlet.java
-   - DashboardLoginServlet.java
-   - GenreServlet.java
-   - LoginServlet.java
-   - LoginServletMobile.java
-   - MetadataServlet.java
-   - MovieListServlet.java
-   - MoviesByGenreServlet.java
-   - MoviesByTitleServlet.java
-   - MoviesServlet.java
-   - NewMovieServlet.java
-   - NewStarServlet.java
-   - PaymentServlet.java
-   - SingleMovieServlet.java
+   - src/SingleStarServlet.java
+   - src/AutocompleteServlet.java
+   - src/DashboardLoginServlet.java
+   - src/GenreServlet.java
+   - src/LoginServlet.java
+   - src/LoginServletMobile.java
+   - src/ MetadataServlet.java
+   - src/MovieListServlet.java
+   - src/MoviesByGenreServlet.java
+   - src/MoviesByTitleServlet.java
+   - src/MoviesServlet.java
+   - src/NewMovieServlet.java
+   - src/NewStarServlet.java
+   - src/PaymentServlet.java
+   - src/SingleMovieServlet.java
+   - WebContent/META-INF/context.html
  - #### Explain how Connection Pooling is utilized in the Fabflix code.
-
+   - Within our Fabflix code we made sure to Use Prepared Statements in all JDBC statements involving user input, along with enabling the setting 'cachePrepStmts'
+   - The login credentials of the MySQL is given to JDBC in out context.xml file. JDBC then uses this info to create a connection pool. The servlet leases connections from this pool when needed and returns when complete.
  - #### Explain how Connection Pooling works with two backend SQL.
-
+   - We use a slave and master SQL and lease connections to either one or both depending on what actions are being performed.
 
 - # Master/Slave
  - #### Include the filename/path of all code/configuration files in GitHub of routing queries to Master/Slave SQL.
-
+   - src/NewMovieServlet.java
+    - src/NewStarServlet.java
+    - src/PaymentServlet.java
  - #### How read/write requests were routed to Master/Slave SQL?
-
+   - We used MySQL Replication. If the user performs a write action, then that is sent to the Master SQL ONLY. This is done by establishing a DataSource connection to "master" resource that we created. 
+   - For a read operation, requests could be sent to both the Master or Slave. 
 
 - # JMeter TS/TJ Time Logs
  - #### Instructions of how to use the `log_processing.*` script to process the JMeter logs.
