@@ -10,8 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,6 +33,8 @@ public class MovieListServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        long startTS = System.nanoTime(), endTS, elapsedTS;
+        long startTJ = 0, endTJ = 0, elapsedTJ = 0;
 
         //response.setContentType("application/json"); // Response mime type
         // In your list servlet (list.java), after you've parsed the current URL and done any other processing:
@@ -133,11 +134,17 @@ public class MovieListServlet extends HttpServlet {
             statement.setInt(preparedIndex, offset);
 
             // Perform the query
+            //TJ start
+            startTJ = System.nanoTime();
             ResultSet rs = statement.executeQuery();
+            endTJ = System.nanoTime();
+            elapsedTJ = endTJ - startTJ;
+            //TJ end
+
 
             JsonArray jsonArray = new JsonArray();
-            // Iterate through each row of rs
 
+            // Iterate through each row of rs
             while (rs.next()) {
                 JsonObject movieJson = new JsonObject();
                 movieJson.addProperty("title", rs.getString("title"));
@@ -183,10 +190,24 @@ public class MovieListServlet extends HttpServlet {
             response.setStatus(500);
         } finally {
             out.close();
+            endTS = System.nanoTime();
+            elapsedTS = endTS - startTS;
+
+            String contextPath = getServletContext().getRealPath("/");
+            String filePath = contextPath + File.separator + "log.txt";
+            System.out.println(filePath);
+            File file = new File(filePath);
+
+            try (FileWriter fileWriter = new FileWriter(file, true);
+                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+                bufferedWriter.write(elapsedTS + "," + elapsedTJ);
+                bufferedWriter.newLine();
+                System.out.println("Data logged");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
-
-        // Always remember to close db connection after usage. Here it's done by try-with-resources
-
     }
 
     public String parseSort(String sort){
