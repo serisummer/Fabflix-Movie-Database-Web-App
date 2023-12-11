@@ -70,9 +70,9 @@ Contributions:
 
  - #### Names: Weiguang Wu, Saul Hernandez
 
- - #### Project 5 Video Demo Link:
+ - #### Project 5 Video Demo Link: https://www.youtube.com/watch?v=u0K1X7QyxHk
 
- - #### Instruction of deployment: 
+ - #### Instruction of deployment: did not do task 4...
 
  - #### Collaborations and Work Distribution: Weiguang Wu: Tasks 1/3, Saul Hernandez: Task 2/3
 
