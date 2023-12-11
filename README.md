@@ -63,3 +63,49 @@ Demo Video: https://youtu.be/smDRbiCmumo
 Contributions:
 - Weiguang Wu: Android App for Fabflix
 - Saul Hernandez: Full-text Search and Auto-complete
+
+- # General
+ - #### Team#: team nop
+
+ - #### Names: Weiguang Wu, Saul Hernandez
+
+ - #### Project 5 Video Demo Link:
+
+ - #### Instruction of deployment: 
+
+ - #### Collaborations and Work Distribution: Weiguang Wu: Tasks 1/3, Saul Hernandez: Task 2/3
+
+
+- # Connection Pooling
+ - #### Include the filename/path of all code/configuration files in GitHub of using JDBC Connection Pooling.
+   - SingleStarServlet.java
+   - AutocompleteServlet.java
+   - DashboardLoginServlet.java
+   - GenreServlet.java
+   - LoginServlet.java
+   - LoginServletMobile.java
+   - MetadataServlet.java
+   - MovieListServlet.java
+   - MoviesByGenreServlet.java
+   - MoviesByTitleServlet.java
+   - MoviesServlet.java
+   - NewMovieServlet.java
+   - NewStarServlet.java
+   - PaymentServlet.java
+   - SingleMovieServlet.java
+ - #### Explain how Connection Pooling is utilized in the Fabflix code.
+
+ - #### Explain how Connection Pooling works with two backend SQL.
+
+
+- # Master/Slave
+ - #### Include the filename/path of all code/configuration files in GitHub of routing queries to Master/Slave SQL.
+
+ - #### How read/write requests were routed to Master/Slave SQL?
+
+
+- # JMeter TS/TJ Time Logs
+ - #### Instructions of how to use the `log_processing.*` script to process the JMeter logs.
+
+
+- # JMeter TS/TJ Time Measurement Report
